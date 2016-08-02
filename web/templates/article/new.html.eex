@@ -1,5 +1,5 @@
 <h1>New Article</h1>
-<%= form_for @conn, article_path(@conn, :create), [as: :article], fn f -> %>
+<%= form_for @changeset, article_path(@conn, :create), fn f -> %>
   <div class="form-group">
     <%= label f, :title %>
     <%= text_input f, :title %>
