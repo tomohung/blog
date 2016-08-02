@@ -11,6 +11,7 @@
     <td><%= article.title %></td>
     <td><%= article.text %></td>
     <td><%= link("Show", to: article_path(@conn, :show, article)) %></td>
+    <td><%= link("Edit", to: article_path(@conn, :edit, article)) %></td>
   </tr>
   <% end %>
 </table>
