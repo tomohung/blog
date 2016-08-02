@@ -22,6 +22,7 @@ defmodule Blog.ArticleController do
     case Repo.insert(changeset) do
       {:ok, article} ->
         conn
+        |> put_flash(:info, "Article created")
         |> redirect(to: article_path(conn, :show, article))
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
@@ -40,10 +41,22 @@ defmodule Blog.ArticleController do
     case Repo.update(changeset) do
       {:ok, article} ->
         conn
+        |> put_flash(:info, "Article updated"
         |> redirect(to: article_path(conn, :show, article))
       {:error, changeset} ->
         render conn, "edit.html", article: article, changeset: changeset
     end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    article = Repo.get(Article, id)
+
+    # use ! because it should always work, otherwise raise an error
+    Repo.delete!(article)
+    conn
+    |> put_flash(:info, "Article deleted")
+    |> redirect(to: article_path(conn, :index))
+
   end
 
 end

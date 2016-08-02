@@ -12,6 +12,7 @@
     <td><%= article.text %></td>
     <td><%= link("Show", to: article_path(@conn, :show, article)) %></td>
     <td><%= link("Edit", to: article_path(@conn, :edit, article)) %></td>
+    <td><%= link("Delete", to: article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you suer?"]) %></td>
   </tr>
   <% end %>
 </table>
