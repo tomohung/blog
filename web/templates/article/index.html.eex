@@ -1,0 +1,16 @@
+<h1>Listing articles</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+  </tr>
+
+  <%= for article <- @articles do %>
+  <tr>
+    <td><%= article.title %></td>
+    <td><%= article.text %></td>
+    <td><%= link("Show", to: article_path(@conn, :show, article)) %></td>
+  </tr>
+  <% end %>
+</table>

@@ -2,6 +2,11 @@ defmodule Blog.ArticleController do
   use Blog.Web, :controller
   alias Blog.Article
 
+  def index(conn, _params) do
+    articles = Repo.all(Article)
+    render conn, "index.html", articles: articles
+  end
+
   def new(conn, _params) do
     changeset = Article.changeset(%Article{})
     render conn, "new.html", changeset: changeset
