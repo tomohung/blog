@@ -15,5 +15,6 @@ defmodule Blog.Article do
     struct
     |> cast(params, [:title, :text])
     |> validate_required([:title, :text])
+    |> validate_length(:title, min: 5)
   end
 end
