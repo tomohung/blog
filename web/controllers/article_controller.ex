@@ -6,6 +6,6 @@ defmodule Blog.ArticleController do
   end
 
   def create(conn, params) do
-    render inspect(params)
+    text conn, inspect(params)
   end
 end
