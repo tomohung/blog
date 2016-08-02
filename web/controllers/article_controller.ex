@@ -12,9 +12,14 @@ defmodule Blog.ArticleController do
     case Repo.insert(changeset) do
       {:ok, article} ->
         conn
-        |> redirect(to: article_path(conn, article.id))
+        |> redirect(to: article_path(conn, :show, article))
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    article = Repo.get(Article, id)
+    render conn, "show.html", article: article
   end
 end
