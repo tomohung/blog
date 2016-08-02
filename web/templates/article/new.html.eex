@@ -12,3 +12,5 @@
   </div>
   <%= submit "Submit", class: "btn btn-primary" %>
 <% end %>
+
+<%= link "Back", to: article_path(@conn, :index) %>
