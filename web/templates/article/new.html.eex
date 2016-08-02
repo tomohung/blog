@@ -1,0 +1,12 @@
+<h1>New Article</h1>
+<%= form_for @conn, article_path(@conn, :create), [as: :article], fn f -> %>
+  <div class="form-group">
+    <%= label f, :title %>
+    <%= text_input f, :title %>
+  </div>
+  <div class="form-group">
+    <%= label f, :text %>
+    <%= text_input f, :text %>
+  </div>
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>
