@@ -7,7 +7,14 @@ defmodule Blog.ArticleController do
     render conn, "new.html", changeset: changeset
   end
 
-  def create(conn, params) do
-    text conn, inspect(params)
+  def create(conn, %{"article" => article_params}) do
+    changeset = Article.changeset(%Article{}, article_params)
+    case Repo.insert(changeset) do
+      {:ok, article} ->
+        conn
+        |> redirect(to: article_path(conn, article.id))
+      {:error, changeset} ->
+        render conn, "new.html", changeset: changeset
+    end
   end
 end
