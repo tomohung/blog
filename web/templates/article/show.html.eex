@@ -8,4 +8,13 @@
 <%= @article.text %>
 </p>
 
+<h2>Comments</h2>
+<%= for comment <- @article.comments do %>
+  <%= render "comment.html", conn: @conn, comment: comment, article: @article %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= render "comment_form.html", article: @article, changeset: @changeset, action: article_comment_path(@conn, :create, @article) %>
+
+<%= link "Edit", to: article_path(@conn, :edit, @article) %> |
 <%= link "Back", to: article_path(@conn, :index) %>

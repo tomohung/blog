@@ -18,7 +18,9 @@ defmodule Blog.Router do
 
     get "/", PageController, :index
 
-    resources "/articles", ArticleController
+    resources "/articles", ArticleController do
+      resources "/comments", CommentController, only: [:create, :delete]
+    end
   end
 
   # Other scopes may use custom stacks.

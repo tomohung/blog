@@ -1,6 +1,7 @@
 defmodule Blog.ArticleController do
   use Blog.Web, :controller
   alias Blog.Article
+  alias Blog.Comment
 
   def index(conn, _params) do
     articles = Repo.all(Article)
@@ -8,8 +9,9 @@ defmodule Blog.ArticleController do
   end
 
   def show(conn, %{"id" => id}) do
-    article = Repo.get(Article, id)
-    render conn, "show.html", article: article
+    article = Repo.get(Article, id) |> Repo.preload([:comments])
+    changeset = Comment.changeset(%Comment{})
+    render conn, "show.html", article: article, changeset: changeset
   end
 
   def new(conn, _params) do
@@ -41,7 +43,7 @@ defmodule Blog.ArticleController do
     case Repo.update(changeset) do
       {:ok, article} ->
         conn
-        |> put_flash(:info, "Article updated"
+        |> put_flash(:info, "Article updated")
         |> redirect(to: article_path(conn, :show, article))
       {:error, changeset} ->
         render conn, "edit.html", article: article, changeset: changeset

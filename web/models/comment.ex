@@ -14,7 +14,7 @@ defmodule Blog.Comment do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:commenter, :body])
-    |> validate_required([:commenter, :body])
+    |> cast(params, [:commenter, :body, :article_id])
+    |> validate_required([:commenter, :body, :article_id])
   end
 end

@@ -1,0 +1,16 @@
+<%= form_for @changeset, @action, fn f -> %>
+<div class="form-group">
+  <%= label f, :commenter, class: "control-label" %>
+  <%= text_input f, :commenter, class: "form-control" %>
+  <%= error_tag f, :commenter %>
+</div>
+
+<div class="form-group">
+  <%= label f, :body, class: "control-label" %>
+  <%= textarea f, :body, class: "form-control" %>
+  <%= error_tag f, :body %>
+</div>
+
+<%= submit "Submit", class: "btn btn-primary" %>
+<% end %>
+
