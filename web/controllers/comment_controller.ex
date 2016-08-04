@@ -3,6 +3,8 @@ defmodule Blog.CommentController do
   alias Blog.Comment
   alias Blog.Article
 
+  plug :scrub_params, "comment" when action in [:create] # convert require params from "" to nil
+
   def create(conn, %{"article_id" => article_id, "comment" => comment_params}) do
     changeset = Comment.changeset(%Comment{}, Map.put(comment_params, "article_id", article_id))
     article = Article |> Repo.get(article_id) |> Repo.preload([:comments])
@@ -13,7 +15,8 @@ defmodule Blog.CommentController do
       |> put_flash(:info, "Comment added.")
       |> redirect(to: article_path(conn, :show, article))
     else
-      render(conn, "show.html", article: article, changeset: changeset)
+      {:error, changeset} = Repo.insert(changeset) # to show beautifull error info
+      render(conn, Blog.ArticleView, "show.html", article: article, changeset: changeset)
     end
   end
 
