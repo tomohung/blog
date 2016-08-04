@@ -23,7 +23,9 @@ defmodule Blog.CommentController do
   def delete(conn, %{"article_id" => article_id, "id" => id}) do
     article = Repo.get(Article, article_id)
     comment = Repo.get(Comment, id)
-    Repo.delete(comment)
-    redirect(conn, to: article_path(conn, :show, article))
+    Repo.delete!(comment)
+    conn
+    |> put_flash(:info, "Comment deleted!")
+    |> redirect(to: article_path(conn, :show, article))
   end
 end
